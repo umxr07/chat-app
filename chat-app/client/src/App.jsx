@@ -14,7 +14,7 @@ import "./App.css";
 // SOCKET
 // =====================================================
 
-const socket = io("http://localhost:5000", {
+const socket = io("https://chatly-q2yn.onrender.com", {
     autoConnect: true
 });
 
