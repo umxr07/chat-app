@@ -275,7 +275,7 @@ io.on("connection", (socket) => {
 
     socket.on(
         "create_group",
-        async (data) => {
+        async (data, callback) => {
 
             try {
 
@@ -942,7 +942,7 @@ io.on("connection", (socket) => {
 
     socket.on(
         "send_message",
-        async (data) => {
+        async (data, callback) => {
 
             try {
 
@@ -1091,6 +1091,17 @@ io.on("connection", (socket) => {
                         newMessage
                     );
 
+                // -------------------------------------------------
+                // CONFIRM MESSAGE WAS SAVED
+                // -------------------------------------------------
+
+                if (typeof callback === "function") {
+                    callback({
+                        success: true,
+                        tempId: data.tempId,
+                        message: formattedMessage
+                    });
+                }
                 // -------------------------------------------------
                 // SEND TO GROUP
                 // -------------------------------------------------
@@ -1964,6 +1975,6 @@ server.listen(
             `Server running on http://localhost:${PORT}`
         );
 
-        
+
     }
 );

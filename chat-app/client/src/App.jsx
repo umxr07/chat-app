@@ -61,7 +61,6 @@ function App() {
     const [showJoinGroup, setShowJoinGroup] =
         useState(false);
 
-    // NEW
     const [showGroupInfo, setShowGroupInfo] =
         useState(false);
 
@@ -139,12 +138,12 @@ function App() {
     const touchMovedRef =
         useRef(false);
 
-
     const longPressTimerRef =
         useRef(null);
 
     const longPressTriggeredRef =
         useRef(false);
+
     // =====================================================
     // CLOSE MESSAGE ACTIONS
     // =====================================================
@@ -214,12 +213,72 @@ function App() {
                 return;
             }
 
-            setMessages(
-                previousMessages => [
+            setMessages(previousMessages => {
+
+                const alreadyExists =
+                    previousMessages.some(
+                        msg =>
+                            msg.id &&
+                            data.id &&
+                            String(msg.id) ===
+                            String(data.id)
+                    );
+
+                if (alreadyExists) {
+                    return previousMessages;
+                }
+
+                const tempMessageIndex =
+                    previousMessages.findIndex(
+                        msg =>
+                            msg.sending === true &&
+                            msg.tempId &&
+                            msg.username === data.username &&
+                            msg.text === data.text &&
+                            msg.groupId === data.groupId
+                    );
+
+                if (tempMessageIndex !== -1) {
+
+                    return previousMessages.map(
+                        (msg, index) =>
+                            index === tempMessageIndex
+                                ? {
+                                    ...data,
+
+                                    clientKey:
+                                        msg.clientKey,
+
+                                    tempId:
+                                        undefined,
+
+                                    sending:
+                                        false,
+
+                                    failed:
+                                        false
+                                }
+                                : msg
+                    );
+                }
+
+                return [
                     ...previousMessages,
-                    data
-                ]
-            );
+                    {
+                        ...data,
+
+                        clientKey:
+                            data.clientKey ||
+                            String(data.id),
+
+                        sending:
+                            false,
+
+                        failed:
+                            false
+                    }
+                ];
+            });
         }
 
         socket.on(
@@ -232,7 +291,6 @@ function App() {
         // -------------------------------------------------
 
         function handleOnlineUsers(count) {
-
             setOnlineUsers(count);
         }
 
@@ -246,7 +304,6 @@ function App() {
         // -------------------------------------------------
 
         function handleGroupOnlineUsers(count) {
-
             setGroupOnlineUsers(count);
         }
 
@@ -351,7 +408,21 @@ function App() {
                 return;
             }
 
-            setMessages(groupMessages);
+            setMessages(
+                groupMessages.map(msg => ({
+                    ...msg,
+
+                    clientKey:
+                        msg.clientKey ||
+                        String(msg.id),
+
+                    sending:
+                        false,
+
+                    failed:
+                        false
+                }))
+            );
 
             setTypingUser("");
 
@@ -428,7 +499,9 @@ function App() {
                         type: "system",
                         status: "joined",
                         text:
-                            `${data.username} joined the chat`
+                            `${data.username} joined the chat`,
+                        clientKey:
+                            `system-joined-${Date.now()}-${Math.random()}`
                     }
                 ]
             );
@@ -456,7 +529,9 @@ function App() {
                         type: "system",
                         status: "left",
                         text:
-                            `${data.username} left the chat`
+                            `${data.username} left the chat`,
+                        clientKey:
+                            `system-left-${Date.now()}-${Math.random()}`
                     }
                 ]
             );
@@ -496,7 +571,6 @@ function App() {
         // -------------------------------------------------
 
         function handleUserStopTyping() {
-
             setTypingUser("");
         }
 
@@ -576,7 +650,8 @@ function App() {
                                 deleted: true,
                                 text: "",
                                 reaction: null,
-                                reactionUser: null
+                                reactionUser: null,
+                                sending: false
                             };
                         }
 
@@ -618,7 +693,8 @@ function App() {
                                 reaction:
                                     data.reaction,
                                 reactionUser:
-                                    data.username
+                                    data.username,
+                                sending: false
                             }
                             : msg
                     )
@@ -648,7 +724,8 @@ function App() {
                             ? {
                                 ...msg,
                                 reaction: null,
-                                reactionUser: null
+                                reactionUser: null,
+                                sending: false
                             }
                             : msg
                     )
@@ -859,6 +936,7 @@ function App() {
     // =====================================================
     // TOUCH START
     // =====================================================
+
     function handleTouchStart(
         event,
         index,
@@ -903,7 +981,6 @@ function App() {
             setSwipeOffset(0);
         }
 
-        // LONG PRESS
         clearTimeout(
             longPressTimerRef.current
         );
@@ -923,7 +1000,6 @@ function App() {
 
                 setSwipedMessageIndex(index);
 
-                // Show delete only for own message
                 setDeleteMessageIndex(
                     messages[index]?.username ===
                         username
@@ -937,6 +1013,7 @@ function App() {
     // =====================================================
     // TOUCH MOVE
     // =====================================================
+
     function handleTouchMove(
         event,
         index
@@ -956,7 +1033,6 @@ function App() {
             touch.clientY -
             swipeStartYRef.current;
 
-        // Vertical movement = scrolling
         if (
             Math.abs(deltaY) >
             Math.abs(deltaX)
@@ -972,14 +1048,12 @@ function App() {
             return;
         }
 
-        // Ignore tiny movements
         if (
             Math.abs(deltaX) < 12
         ) {
             return;
         }
 
-        // Finger moved enough to cancel long press
         clearTimeout(
             longPressTimerRef.current
         );
@@ -987,7 +1061,6 @@ function App() {
         touchMovedRef.current =
             true;
 
-        // Only swipe RIGHT
         if (deltaX > 12) {
 
             isSwipingRef.current =
@@ -1003,9 +1076,11 @@ function App() {
             );
         }
     }
+
     // =====================================================
     // TOUCH END
     // =====================================================
+
     function handleTouchEnd(
         selectedMessage,
         index
@@ -1019,7 +1094,6 @@ function App() {
             swipeCurrentXRef.current -
             swipeStartXRef.current;
 
-        // LONG PRESS
         if (
             longPressTriggeredRef.current
         ) {
@@ -1054,7 +1128,6 @@ function App() {
             return;
         }
 
-        // SWIPE RIGHT
         if (
             isSwipingRef.current &&
             deltaX >= 55
@@ -1071,10 +1144,8 @@ function App() {
             handleReply(
                 selectedMessage
             );
-
         }
 
-        // NORMAL TAP
         else if (
             !isSwipingRef.current
         ) {
@@ -1090,7 +1161,6 @@ function App() {
             }
         }
 
-        // INCOMPLETE SWIPE
         else {
 
             setActiveSwipeIndex(null);
@@ -1108,9 +1178,11 @@ function App() {
 
         }, 50);
     }
+
     // =====================================================
     // TOUCH CANCEL
     // =====================================================
+
     function handleTouchCancel() {
 
         clearTimeout(
@@ -1131,7 +1203,12 @@ function App() {
         setSwipeOffset(0);
     }
 
+    // =====================================================
+    // ACTION TOUCH
+    // =====================================================
+
     function handleActionTouchStart(event) {
+
         event.stopPropagation();
 
         clearTimeout(
@@ -1149,6 +1226,7 @@ function App() {
     }
 
     function handleActionTouchMove(event) {
+
         event.stopPropagation();
 
         isSwipingRef.current =
@@ -1159,6 +1237,7 @@ function App() {
     }
 
     function handleActionTouchEnd(event) {
+
         event.stopPropagation();
 
         clearTimeout(
@@ -1174,6 +1253,7 @@ function App() {
         longPressTriggeredRef.current =
             false;
     }
+
     // =====================================================
     // FOCUS INPUT
     // =====================================================
@@ -1203,6 +1283,7 @@ function App() {
         }
 
         setReplyingTo({
+
             id:
                 selectedMessage.id,
 
@@ -1754,7 +1835,33 @@ function App() {
             return;
         }
 
+        const tempId =
+            `temp-${Date.now()}-${Math.random()
+                .toString(36)
+                .slice(2, 9)}`;
+
+        const clientKey =
+            `client-${Date.now()}-${Math.random()
+                .toString(36)
+                .slice(2, 9)}`;
+
+        const messageTime =
+            new Date().toLocaleTimeString(
+                [],
+                {
+                    hour: "2-digit",
+                    minute: "2-digit"
+                }
+            );
+
         const newMessage = {
+
+            id:
+                tempId,
+
+            tempId,
+
+            clientKey,
 
             username,
 
@@ -1762,13 +1869,16 @@ function App() {
                 cleanMessage,
 
             time:
-                new Date().toLocaleTimeString(
-                    [],
-                    {
-                        hour: "2-digit",
-                        minute: "2-digit"
-                    }
-                ),
+                messageTime,
+
+            groupId:
+                currentGroup.id,
+
+            sending:
+                true,
+
+            failed:
+                false,
 
             replyTo:
                 replyingTo
@@ -1785,9 +1895,75 @@ function App() {
                     : null
         };
 
+        setMessages(
+            previousMessages => [
+                ...previousMessages,
+                newMessage
+            ]
+        );
+
         socket.emit(
             "send_message",
-            newMessage
+            newMessage,
+            response => {
+
+                if (!response?.success) {
+
+                    setMessages(
+                        previousMessages =>
+                            previousMessages.map(
+                                msg =>
+                                    msg.tempId ===
+                                        tempId
+                                        ? {
+                                            ...msg,
+
+                                            sending:
+                                                false,
+
+                                            failed:
+                                                true
+                                        }
+                                        : msg
+                            )
+                    );
+
+                    return;
+                }
+
+                if (
+                    response?.success &&
+                    response.message
+                ) {
+
+                    setMessages(
+                        previousMessages =>
+                            previousMessages.map(
+                                msg =>
+                                    msg.tempId ===
+                                        tempId
+                                        ? {
+                                            ...response.message,
+
+                                            clientKey:
+                                                msg.clientKey,
+
+                                            tempId:
+                                                undefined,
+
+                                            sending:
+                                                false,
+
+                                            failed:
+                                                false
+                                        }
+                                        : msg
+                            )
+                    );
+
+                    return;
+                }
+            }
         );
 
         socket.emit(
@@ -2242,8 +2418,6 @@ function App() {
 
             <header className="chat-header">
 
-                {/* LEFT */}
-
                 <div className="header-left">
 
                     <div
@@ -2312,8 +2486,6 @@ function App() {
 
                     </div>
 
-                    {/* MEMBERS */}
-
                     <button
                         type="button"
                         className="members-button"
@@ -2336,8 +2508,6 @@ function App() {
 
                 </div>
 
-                {/* CENTER */}
-
                 <button
                     type="button"
                     className={`chat-group-title ${showGroupInfo
@@ -2351,8 +2521,6 @@ function App() {
                 >
                     {currentGroup?.name || "Chatly"}
                 </button>
-
-                {/* RIGHT */}
 
                 <div className="header-right">
 
@@ -2643,6 +2811,10 @@ function App() {
                 {messages.map(
                     (msg, index) => {
 
+                        // -------------------------------------------------
+                        // SYSTEM MESSAGE
+                        // -------------------------------------------------
+
                         if (
                             msg.type ===
                             "system"
@@ -2651,7 +2823,10 @@ function App() {
                             return (
                                 <div
                                     className={`system-message ${msg.status}`}
-                                    key={`system-${index}`}
+                                    key={
+                                        msg.clientKey ||
+                                        `system-${index}`
+                                    }
                                 >
 
                                     {
@@ -2666,6 +2841,10 @@ function App() {
                                 </div>
                             );
                         }
+
+                        // -------------------------------------------------
+                        // MESSAGE
+                        // -------------------------------------------------
 
                         const isMyMessage =
                             msg.username ===
@@ -2701,6 +2880,7 @@ function App() {
                             <div
                                 id={`message-${msg.id}`}
                                 key={
+                                    msg.clientKey ||
                                     msg.id ||
                                     `message-${index}`
                                 }
@@ -2716,17 +2896,15 @@ function App() {
                                     }`}
                                 style={{
                                     transform:
-                                        currentSwipeOffset >
-                                            0
+                                        currentSwipeOffset > 0
                                             ? `translateX(${currentSwipeOffset}px)`
-                                            : undefined,
+                                            : "translateX(0)",
+
+                                    animation:
+                                        "none",
 
                                     transition:
-                                        isSwipingRef.current &&
-                                            activeSwipeIndex ===
-                                            index
-                                            ? "none"
-                                            : "transform 0.25s ease"
+                                        "none"
                                 }}
                                 onTouchStart={event =>
                                     handleTouchStart(
@@ -2759,9 +2937,34 @@ function App() {
                                 }
                             >
 
-                                <strong>
-                                    {msg.username}
-                                </strong>
+                                {/* =================================================
+                                    NAME + SENDING CLOCK
+                                    ================================================= */}
+
+                                <div className="message-name-row">
+
+                                    <strong>
+                                        {msg.username}
+                                    </strong>
+
+                                    {/* ONLY ONE CLOCK */}
+                                    {!isDeleted &&
+                                        msg.sending === true && (
+
+                                            <span
+                                                className="message-time message-sending"
+                                                title="Sending..."
+                                            >
+                                                ◷
+                                            </span>
+
+                                        )}
+
+                                </div>
+
+                                {/* =================================================
+                                    REPLY
+                                    ================================================= */}
 
                                 {msg.replyTo &&
                                     !isDeleted && (
@@ -2802,6 +3005,10 @@ function App() {
                                         </div>
                                     )}
 
+                                {/* =================================================
+                                    MESSAGE TEXT + TIME
+                                    ================================================= */}
+
                                 <div className="message-row">
 
                                     <p
@@ -2829,10 +3036,13 @@ function App() {
 
                                     </p>
 
+                                    {/* TIME ONLY — NO CLOCK HERE */}
                                     {!isDeleted && (
 
                                         <span className="message-time">
+
                                             {msg.time}
+
                                         </span>
 
                                     )}
@@ -2847,6 +3057,10 @@ function App() {
                                         </div>
                                     )}
 
+                                {/* =================================================
+                                    ACTIONS
+                                    ================================================= */}
+
                                 {showActions && (
 
                                     <div
@@ -2855,6 +3069,7 @@ function App() {
                                             event.stopPropagation()
                                         }
                                         onPointerDown={event => {
+
                                             event.stopPropagation();
 
                                             clearTimeout(
@@ -2870,16 +3085,25 @@ function App() {
                                             longPressTriggeredRef.current =
                                                 false;
                                         }}
-                                        onTouchStart={handleActionTouchStart}
-                                        onTouchMove={handleActionTouchMove}
-                                        onTouchEnd={handleActionTouchEnd}
-                                        onTouchCancel={handleActionTouchEnd}
+                                        onTouchStart={
+                                            handleActionTouchStart
+                                        }
+                                        onTouchMove={
+                                            handleActionTouchMove
+                                        }
+                                        onTouchEnd={
+                                            handleActionTouchEnd
+                                        }
+                                        onTouchCancel={
+                                            handleActionTouchEnd
+                                        }
                                     >
 
                                         <button
                                             type="button"
                                             className="reply-message"
                                             onTouchStart={event => {
+
                                                 event.stopPropagation();
 
                                                 clearTimeout(
@@ -2887,9 +3111,11 @@ function App() {
                                                 );
                                             }}
                                             onTouchMove={event => {
+
                                                 event.stopPropagation();
                                             }}
                                             onTouchEnd={event => {
+
                                                 event.stopPropagation();
                                             }}
                                             onClick={event => {
@@ -2911,6 +3137,7 @@ function App() {
                                                 type="button"
                                                 className="delete-message"
                                                 onTouchStart={event => {
+
                                                     event.stopPropagation();
 
                                                     clearTimeout(
@@ -2918,9 +3145,11 @@ function App() {
                                                     );
                                                 }}
                                                 onTouchMove={event => {
+
                                                     event.stopPropagation();
                                                 }}
                                                 onTouchEnd={event => {
+
                                                     event.stopPropagation();
                                                 }}
                                                 onClick={event => {

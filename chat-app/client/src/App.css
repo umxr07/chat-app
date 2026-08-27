@@ -23,7 +23,6 @@ body {
             #1b1a3a);
 }
 
-
 /* =========================================================
    JOIN SCREEN
 ========================================================= */
@@ -50,10 +49,7 @@ body {
     background: linear-gradient(145deg,
             #171b35,
             #20264a);
-    border: 1px solid rgba(129,
-            140,
-            248,
-            0.25);
+    border: 1px solid rgba(129, 140, 248, 0.25);
     border-radius: 20px;
     box-shadow:
         0 20px 50px rgba(0, 0, 0, 0.45),
@@ -104,14 +100,8 @@ body {
     font: inherit;
     font-size: 15px;
     outline: none;
-    background: rgba(37,
-            43,
-            74,
-            0.9);
-    border: 1px solid rgba(129,
-            140,
-            248,
-            0.2);
+    background: rgba(37, 43, 74, 0.9);
+    border: 1px solid rgba(129, 140, 248, 0.2);
     border-radius: 10px;
 }
 
@@ -119,10 +109,7 @@ body {
     border-color: #818cf8;
     background: #2b3155;
     box-shadow:
-        0 0 0 3px rgba(99,
-            102,
-            241,
-            0.15);
+        0 0 0 3px rgba(99, 102, 241, 0.15);
 }
 
 .join-box button {
@@ -145,10 +132,7 @@ body {
 .join-box button:hover {
     transform: translateY(-2px);
     box-shadow:
-        0 8px 20px rgba(99,
-            102,
-            241,
-            0.25);
+        0 8px 20px rgba(99, 102, 241, 0.25);
 }
 
 .alert-message {
@@ -165,7 +149,6 @@ body {
     font-size: 12px;
     opacity: 0.9;
 }
-
 
 /* =========================================================
    GROUP SCREEN
@@ -196,16 +179,12 @@ body {
     background: linear-gradient(145deg,
             #171b35,
             #20264a);
-    border: 1px solid rgba(129,
-            140,
-            248,
-            0.2);
+    border: 1px solid rgba(129, 140, 248, 0.2);
     border-radius: 20px;
     box-shadow:
         0 20px 50px rgba(0, 0, 0, 0.4),
         0 0 30px rgba(99, 102, 241, 0.06);
 }
-
 
 /* =========================================================
    GROUP HEADER
@@ -254,7 +233,6 @@ body {
     transform: translateY(-1px);
 }
 
-
 /* =========================================================
    GROUP SEARCH
 ========================================================= */
@@ -267,14 +245,8 @@ body {
     font: inherit;
     font-size: 13px;
     outline: none;
-    background: rgba(37,
-            48,
-            69,
-            0.9);
-    border: 1px solid rgba(129,
-            140,
-            248,
-            0.18);
+    background: rgba(37, 48, 69, 0.9);
+    border: 1px solid rgba(129, 140, 248, 0.18);
     border-radius: 10px;
 }
 
@@ -285,12 +257,8 @@ body {
 .group-search:focus {
     border-color: #818cf8;
     box-shadow:
-        0 0 0 3px rgba(99,
-            102,
-            241,
-            0.12);
+        0 0 0 3px rgba(99, 102, 241, 0.12);
 }
-
 
 /* =========================================================
    GROUP ERROR
@@ -301,17 +269,10 @@ body {
     padding: 7px 10px;
     color: #fca5a5;
     font-size: 11px;
-    background: rgba(127,
-            48,
-            48,
-            0.15);
-    border: 1px solid rgba(127,
-            48,
-            48,
-            0.3);
+    background: rgba(127, 48, 48, 0.15);
+    border: 1px solid rgba(127, 48, 48, 0.3);
     border-radius: 7px;
 }
-
 
 /* =========================================================
    GROUP LIST
@@ -337,7 +298,6 @@ body {
     border-radius: 10px;
 }
 
-
 /* =========================================================
    GROUP ITEM
 ========================================================= */
@@ -351,14 +311,8 @@ body {
     color: #e2e8f0;
     text-align: left;
     cursor: pointer;
-    background: rgba(37,
-            48,
-            69,
-            0.72);
-    border: 1px solid rgba(255,
-            255,
-            255,
-            0.06);
+    background: rgba(37, 48, 69, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 12px;
     transition:
         transform 0.18s ease,
@@ -369,19 +323,10 @@ body {
 
 .group-item:hover {
     transform: translateY(-2px);
-    background: rgba(48,
-            60,
-            84,
-            0.9);
-    border-color: rgba(129,
-            140,
-            248,
-            0.25);
+    background: rgba(48, 60, 84, 0.9);
+    border-color: rgba(129, 140, 248, 0.25);
     box-shadow:
-        0 5px 15px rgba(0,
-            0,
-            0,
-            0.2);
+        0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .group-item:active {
@@ -392,7 +337,6 @@ body {
     outline: 2px solid #818cf8;
     outline-offset: 2px;
 }
-
 
 /* =========================================================
    GROUP ICON
@@ -411,7 +355,6 @@ body {
             #8b5cf6);
     border-radius: 12px;
 }
-
 
 /* =========================================================
    GROUP INFO
@@ -438,7 +381,6 @@ body {
     font-size: 11px;
 }
 
-
 /* =========================================================
    NO GROUPS
 ========================================================= */
@@ -462,14 +404,8 @@ body {
     justify-content: center;
     margin-bottom: 15px;
     font-size: 30px;
-    background: rgba(99,
-            102,
-            241,
-            0.12);
-    border: 1px solid rgba(129,
-            140,
-            248,
-            0.15);
+    background: rgba(99, 102, 241, 0.12);
+    border: 1px solid rgba(129, 140, 248, 0.15);
     border-radius: 50%;
 }
 
@@ -483,7 +419,6 @@ body {
     color: #64748b;
     font-size: 12px;
 }
-
 
 /* =========================================================
    CREATE GROUP
@@ -499,14 +434,8 @@ body {
     font-size: 13px;
     font-weight: 500;
     cursor: pointer;
-    background: rgba(99,
-            102,
-            241,
-            0.08);
-    border: 1px dashed rgba(129,
-            140,
-            248,
-            0.3);
+    background: rgba(99, 102, 241, 0.08);
+    border: 1px dashed rgba(129, 140, 248, 0.3);
     border-radius: 10px;
     transition:
         background 0.2s ease,
@@ -515,10 +444,7 @@ body {
 }
 
 .create-group-button:hover {
-    background: rgba(99,
-            102,
-            241,
-            0.14);
+    background: rgba(99, 102, 241, 0.14);
     border-color: #818cf8;
     transform: translateY(-1px);
 }
@@ -527,14 +453,8 @@ body {
     flex-shrink: 0;
     margin-top: 15px;
     padding: 14px;
-    background: rgba(30,
-            41,
-            59,
-            0.75);
-    border: 1px solid rgba(129,
-            140,
-            248,
-            0.15);
+    background: rgba(30, 41, 59, 0.75);
+    border: 1px solid rgba(129, 140, 248, 0.15);
     border-radius: 12px;
     animation: groupModalAppear 0.2s ease;
 }
@@ -547,10 +467,7 @@ body {
     font-size: 13px;
     outline: none;
     background: #263449;
-    border: 1px solid rgba(129,
-            140,
-            248,
-            0.2);
+    border: 1px solid rgba(129, 140, 248, 0.2);
     border-radius: 9px;
 }
 
@@ -561,10 +478,7 @@ body {
 .create-group-box input:focus {
     border-color: #818cf8;
     box-shadow:
-        0 0 0 3px rgba(99,
-            102,
-            241,
-            0.12);
+        0 0 0 3px rgba(99, 102, 241, 0.12);
 }
 
 .create-group-actions {
@@ -603,12 +517,8 @@ body {
 
 .confirm-group-button:hover {
     box-shadow:
-        0 6px 18px rgba(99,
-            102,
-            241,
-            0.25);
+        0 6px 18px rgba(99, 102, 241, 0.25);
 }
-
 
 /* =========================================================
    CHAT APP
@@ -617,6 +527,7 @@ body {
 .chat-app {
     width: 100%;
     height: 100dvh;
+    min-height: 0;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -625,7 +536,6 @@ body {
             #151d32 50%,
             #1b1a3a);
 }
-
 
 /* =========================================================
    CHAT HEADER
@@ -640,10 +550,7 @@ body {
     justify-content: center;
     padding: 0 25px;
     color: white;
-    background: rgba(31,
-            41,
-            55,
-            0.92);
+    background: rgba(31, 41, 55, 0.92);
     border-bottom: 1px solid #293548;
     backdrop-filter: blur(10px);
 }
@@ -666,7 +573,6 @@ body {
     animation: logoGradient 12s ease-in-out infinite;
 }
 
-
 /* =========================================================
    HEADER LEFT
 ========================================================= */
@@ -678,7 +584,6 @@ body {
     align-items: center;
     gap: 8px;
 }
-
 
 /* =========================================================
    USERNAME
@@ -701,20 +606,13 @@ body {
 
 .username:hover {
     color: #e2e8f0;
-    background: rgba(129,
-            140,
-            248,
-            0.07);
+    background: rgba(129, 140, 248, 0.07);
 }
 
 .username:focus-visible {
-    outline: 2px solid rgba(129,
-            140,
-            248,
-            0.6);
+    outline: 2px solid rgba(129, 140, 248, 0.6);
     outline-offset: 3px;
 }
-
 
 /* =========================================================
    PROFILE BUTTON
@@ -737,10 +635,7 @@ body {
 }
 
 .profile-button:hover {
-    background: rgba(255,
-            255,
-            255,
-            0.06);
+    background: rgba(255, 255, 255, 0.06);
 }
 
 .profile-button:active {
@@ -757,7 +652,6 @@ body {
     animation: profileIconPulse 2.5s ease-in-out infinite;
 }
 
-
 /* =========================================================
    USERNAME TEXT
 ========================================================= */
@@ -772,8 +666,7 @@ body {
 .username-show {
     max-width: 200px;
     opacity: 1;
-    transform:
-        translateX(0) scale(1);
+    transform: translateX(0) scale(1);
     animation:
         usernameAppear 0.28s cubic-bezier(0.34,
             1.56,
@@ -784,13 +677,10 @@ body {
 .username-hide {
     max-width: 0;
     opacity: 0;
-    transform:
-        translateX(-8px) scale(0.92);
+    transform: translateX(-8px) scale(0.92);
     pointer-events: none;
-    animation:
-        usernameDisappear 0.2s ease;
+    animation: usernameDisappear 0.2s ease;
 }
-
 
 /* =========================================================
    MEMBERS BUTTON
@@ -808,10 +698,7 @@ body {
     color: #cbd5e1;
     font-size: 12px;
     cursor: pointer;
-    background: rgba(255,
-            255,
-            255,
-            0.07);
+    background: rgba(255, 255, 255, 0.07);
     border: none;
     border-radius: 8px;
     transition:
@@ -820,10 +707,7 @@ body {
 }
 
 .members-button:hover {
-    background: rgba(255,
-            255,
-            255,
-            0.13);
+    background: rgba(255, 255, 255, 0.13);
 }
 
 .members-button:active {
@@ -834,7 +718,6 @@ body {
     outline: 2px solid #818cf8;
     outline-offset: 2px;
 }
-
 
 /* =========================================================
    HEADER RIGHT
@@ -868,13 +751,13 @@ body {
     background: #6b2d2d;
 }
 
-
 /* =========================================================
    MESSAGES
 ========================================================= */
 
 .messages {
-    flex: 1;
+    flex: 1 1 auto;
+    min-height: 0;
     display: flex;
     flex-direction: column;
     padding: 25px;
@@ -892,7 +775,6 @@ body {
     border-radius: 10px;
 }
 
-
 /* =========================================================
    MESSAGE
 ========================================================= */
@@ -905,29 +787,21 @@ body {
     margin: 6px 0;
     padding: 10px 14px;
     color: #e2e8f0;
-    background: rgba(40,
-            55,
-            75,
-            0.55);
-    border: 1px solid rgba(255,
-            255,
-            255,
-            0.08);
+    background: rgba(40, 55, 75, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 12px;
     box-shadow:
-        0 3px 8px rgba(0,
-            0,
-            0,
-            0.18);
-    animation: messageAppear 0.2s ease;
+        0 3px 8px rgba(0, 0, 0, 0.18);
+    animation: none !important;
+    transition: none !important;
 }
 
 .message:hover {
     box-shadow:
-        0 5px 12px rgba(0,
-            0,
-            0,
-            0.25);
+        0 5px 12px rgba(0, 0, 0, 0.25);
+    animation: none !important;
+    transition: none !important;
+    transform: inherit;
 }
 
 .message strong {
@@ -942,6 +816,33 @@ body {
     align-self: flex-start;
 }
 
+/* =========================================================
+   MESSAGE NAME + CLOCK
+========================================================= */
+.message-name-row {
+    display: flex;
+    align-items: baseline;
+    width: 100%;
+    gap: 5px;
+}
+
+.message-name-row strong {
+    min-width: 0;
+    margin: 0;
+}
+
+.message-sending {
+    flex-shrink: 0;
+    margin-left: auto !important;
+    padding: 0 !important;
+    color: #8b93a7;
+    font-size: 12px;
+    line-height: 1;
+    position: relative;
+    top: 1px;
+     position: relative;
+    top: -2px;
+}
 
 /* =========================================================
    MESSAGE ROW
@@ -975,7 +876,6 @@ body {
     opacity: 0.65;
 }
 
-
 /* =========================================================
    DELETED MESSAGE
 ========================================================= */
@@ -994,7 +894,6 @@ body {
     cursor: default;
 }
 
-
 /* =========================================================
    MESSAGE ACTIONS
 ========================================================= */
@@ -1008,20 +907,11 @@ body {
     gap: 6px;
     padding: 4px 5px;
     transform: translateY(-50%);
-    background: rgba(35,
-            45,
-            65,
-            0.98);
-    border: 1px solid rgba(150,
-            170,
-            210,
-            0.2);
+    background: rgba(35, 45, 65, 0.98);
+    border: 1px solid rgba(150, 170, 210, 0.2);
     border-radius: 8px;
     box-shadow:
-        0 4px 12px rgba(0,
-            0,
-            0,
-            0.3);
+        0 4px 12px rgba(0, 0, 0, 0.3);
     white-space: nowrap;
     z-index: 50;
 }
@@ -1061,7 +951,6 @@ body {
     transform: scale(1.08);
 }
 
-
 /* =========================================================
    REACTION
 ========================================================= */
@@ -1082,10 +971,7 @@ body {
     font-size: 15px;
     line-height: 1;
     box-shadow:
-        0 2px 6px rgba(0,
-            0,
-            0,
-            0.35);
+        0 2px 6px rgba(0, 0, 0, 0.35);
     z-index: 5;
     animation:
         reactionAppear 0.25s cubic-bezier(0.34,
@@ -1093,7 +979,6 @@ body {
             0.64,
             1);
 }
-
 
 /* =========================================================
    REPLY
@@ -1150,10 +1035,7 @@ body {
     padding: 7px 10px;
     overflow: hidden;
     cursor: pointer;
-    background: rgba(80,
-            110,
-            140,
-            0.25);
+    background: rgba(80, 110, 140, 0.25);
     border-left: 3px solid #6ea8d7;
     border-radius: 5px;
 }
@@ -1171,20 +1053,19 @@ body {
     text-overflow: ellipsis;
 }
 
-
 /* =========================================================
    CHAT INPUT
 ========================================================= */
 
 .chat-input {
+    flex-shrink: 0;
+    width: 100%;
     display: flex;
     align-items: center;
     gap: 10px;
     padding: 15px 20px;
-    background: rgba(31,
-            41,
-            55,
-            0.95);
+    padding-bottom: calc(15px + env(safe-area-inset-bottom));
+    background: rgba(31, 41, 55, 0.95);
     border-top: 1px solid #293548;
     backdrop-filter: blur(10px);
 }
@@ -1227,12 +1108,8 @@ body {
 .chat-input button:hover {
     transform: translateY(-2px);
     box-shadow:
-        0 6px 18px rgba(99,
-            102,
-            241,
-            0.3);
+        0 6px 18px rgba(99, 102, 241, 0.3);
 }
-
 
 /* =========================================================
    SYSTEM MESSAGE
@@ -1240,26 +1117,27 @@ body {
 
 .system-message {
     width: fit-content;
-    margin: 12px auto;
+    max-width: 80%;
+    margin: 10px auto;
     padding: 7px 14px;
-    color: #94a3b8;
     font-size: 12px;
+    font-weight: 500;
     text-align: center;
-    background: #1e293b;
-    border: 1px solid #334155;
-    border-radius: 20px;
+    border-radius: 8px;
+    animation: systemMessageAppear 0.25s ease;
 }
 
 .system-message.joined {
-    color: #6f9f7a;
-    border-color: #294a35;
+    background: rgba(34, 197, 94, 0.12);
+    color: #86efac;
+    border: 1px solid rgba(34, 197, 94, 0.2);
 }
 
 .system-message.left {
-    color: #c47f7f;
-    border-color: #5a3434;
+    background: rgba(239, 68, 68, 0.1);
+    color: #fca5a5;
+    border: 1px solid rgba(239, 68, 68, 0.2);
 }
-
 
 /* =========================================================
    TYPING
@@ -1275,7 +1153,6 @@ body {
     border-radius: 12px;
     animation: typingAppear 0.2s ease;
 }
-
 
 /* =========================================================
    COPIED
@@ -1294,14 +1171,10 @@ body {
     border: 1px solid #3b4a5a;
     border-radius: 20px;
     box-shadow:
-        0 5px 18px rgba(0,
-            0,
-            0,
-            0.3);
+        0 5px 18px rgba(0, 0, 0, 0.3);
     transform: translateX(-50%);
     animation: notificationAppear 0.2s ease;
 }
-
 
 /* =========================================================
    MEMBERS OVERLAY
@@ -1312,10 +1185,7 @@ body {
     inset: 0;
     display: flex;
     justify-content: flex-end;
-    background: rgba(0,
-            0,
-            0,
-            0.45);
+    background: rgba(0, 0, 0, 0.45);
     z-index: 1000;
 }
 
@@ -1326,15 +1196,9 @@ body {
     display: flex;
     flex-direction: column;
     background: #111a26;
-    border-left: 1px solid rgba(255,
-            255,
-            255,
-            0.08);
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow:
-        -10px 0 30px rgba(0,
-            0,
-            0,
-            0.25);
+        -10px 0 30px rgba(0, 0, 0, 0.25);
     animation: membersPanelOpen 0.22s ease;
 }
 
@@ -1343,10 +1207,7 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 20px;
-    border-bottom: 1px solid rgba(255,
-            255,
-            255,
-            0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .members-header h3 {
@@ -1367,20 +1228,14 @@ body {
     height: 34px;
     border: none;
     border-radius: 50%;
-    background: rgba(255,
-            255,
-            255,
-            0.07);
+    background: rgba(255, 255, 255, 0.07);
     color: #cbd5e1;
     cursor: pointer;
     font-size: 15px;
 }
 
 .members-close-button:hover {
-    background: rgba(255,
-            255,
-            255,
-            0.13);
+    background: rgba(255, 255, 255, 0.13);
 }
 
 .members-list {
@@ -1407,10 +1262,7 @@ body {
 }
 
 .member-item:hover {
-    background: rgba(255,
-            255,
-            255,
-            0.05);
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .member-avatar {
@@ -1464,6 +1316,367 @@ body {
     font-size: 14px;
 }
 
+/* =========================================================
+   JOIN BY GROUP ID
+========================================================= */
+
+.join-group-button {
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    background: #4f7cff;
+    color: white;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.join-group-button:hover {
+    background: #3d68e8;
+    transform: translateY(-1px);
+}
+
+.join-group-button:active {
+    transform: scale(0.96);
+}
+
+.join-group-id-button {
+    width: 100%;
+    flex-shrink: 0;
+    margin-top: 15px;
+    padding: 12px;
+    color: #a5b4fc;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    background: rgba(99, 102, 241, 0.08);
+    border: 1px dashed rgba(129, 140, 248, 0.3);
+    border-radius: 10px;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.join-group-id-button:hover {
+    background: rgba(99, 102, 241, 0.14);
+    border-color: #818cf8;
+    transform: translateY(-1px);
+}
+
+.join-group-id-box {
+    flex-shrink: 0;
+    margin-bottom: 10px;
+    padding: 14px;
+    background: rgba(30, 41, 59, 0.75);
+    border: 1px solid rgba(129, 140, 248, 0.15);
+    border-radius: 12px;
+    animation: groupModalAppear 0.2s ease;
+}
+
+.join-group-id-box input {
+    width: 100%;
+    padding: 12px 13px;
+    color: #f8fafc;
+    font: inherit;
+    font-size: 13px;
+    outline: none;
+    background: #263449;
+    border: 1px solid rgba(129, 140, 248, 0.2);
+    border-radius: 9px;
+}
+
+.join-group-id-box input::placeholder {
+    color: #64748b;
+}
+
+.join-group-id-box input:focus {
+    border-color: #818cf8;
+    box-shadow:
+        0 0 0 3px rgba(99, 102, 241, 0.12);
+}
+
+.join-group-id-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.join-group-id-actions button {
+    flex: 1;
+    height: 40px;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 8px;
+    transition:
+        background 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.join-group-id-actions .cancel-group-button {
+    color: #cbd5e1;
+    background: #293548;
+    border: 1px solid #3b475a;
+}
+
+.join-group-id-actions .cancel-group-button:hover {
+    background: #344258;
+}
+
+.join-group-id-actions .confirm-group-button {
+    color: white;
+    background: linear-gradient(135deg,
+            #6366f1,
+            #8b5cf6);
+    border: 0;
+}
+
+.join-group-id-actions .confirm-group-button:hover {
+    box-shadow:
+        0 6px 18px rgba(99, 102, 241, 0.25);
+    transform: translateY(-1px);
+}
+
+.join-group-id-actions button:active {
+    transform: scale(0.97);
+}
+
+/* =========================================================
+   CLICKABLE GROUP TITLE
+========================================================= */
+
+.chat-group-title {
+    background: linear-gradient(90deg,
+            #00f5ff,
+            #0077ff,
+            #67e8f9,
+            #818cf8,
+            #c084fc,
+            #67e8f9,
+            #67e8f9,
+            #818cf8,
+            #c084fc,
+            #67e8f9,
+            #00f5ff);
+    background-size: 500% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: groupNameGradient 15s linear infinite reverse;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-family: "Poppins", sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    padding: 6px 12px;
+}
+
+.chat-group-title:hover {
+    transform: scale(1.04);
+}
+
+@keyframes groupNameGradient {
+    from {
+        background-position: 0% 50%;
+    }
+
+    to {
+        background-position: 500% 50%;
+    }
+}
+
+/* =========================================================
+   GROUP INFO OVERLAY
+========================================================= */
+
+.group-info-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 80px;
+    background: rgba(0, 0, 0, 0.25);
+}
+
+/* =========================================================
+   GROUP INFO POPUP
+========================================================= */
+
+.group-info-popup {
+    width: min(420px, calc(100% - 30px));
+    background: #18202b;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow:
+        0 15px 50px rgba(0, 0, 0, 0.45);
+    color: #fff;
+}
+
+/* =========================================================
+   GROUP INFO HEADER
+========================================================= */
+
+.group-info-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.group-info-header h3 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.group-info-header span {
+    display: block;
+    margin-top: 4px;
+    font-size: 12px;
+    color: #8d99a8;
+}
+
+.group-info-close {
+    border: none;
+    background: transparent;
+    color: #9da8b5;
+    font-size: 18px;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+}
+
+.group-info-close:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+}
+
+/* =========================================================
+   GROUP ID
+========================================================= */
+
+.group-id-section {
+    margin-bottom: 16px;
+}
+
+.group-id-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #8d99a8;
+    margin-bottom: 7px;
+}
+
+.group-id-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #10161f;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 9px;
+    padding: 8px;
+}
+
+.group-id-row code {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #d8dee8;
+    font-family: monospace;
+    font-size: 12px;
+}
+
+.copy-group-id-button {
+    flex-shrink: 0;
+    border: none;
+    background: #273342;
+    color: #e5ebf2;
+    padding: 7px 10px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: 0.2s ease;
+}
+
+.copy-group-id-button:hover {
+    background: #334255;
+}
+
+/* =========================================================
+   GROUP INFO DETAILS
+========================================================= */
+
+.group-info-members,
+.group-info-creator {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    font-size: 14px;
+}
+
+.group-info-members span,
+.group-info-creator span {
+    color: #9da8b5;
+}
+
+.group-info-members strong,
+.group-info-creator strong {
+    color: #edf2f7;
+}
+
+/* =========================================================
+   DELETE GROUP
+========================================================= */
+
+.popup-delete-group-button {
+    width: 100%;
+    margin-top: 16px;
+    border: 1px solid rgba(255, 90, 90, 0.25);
+    background: rgba(180, 50, 50, 0.15);
+    color: #ff8585;
+    padding: 11px;
+    border-radius: 9px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.popup-delete-group-button:hover {
+    background: rgba(180, 50, 50, 0.25);
+    border-color: rgba(255, 90, 90, 0.4);
+}
+
+/* =========================================================
+   MESSAGE SENDING CLOCK
+========================================================= */
+
+.message-sending {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-left: auto;
+    color: #8b93a7;
+    font-size: 13px;
+    line-height: 1;
+    opacity: 0.8;
+    transform: translateY(2px);
+}
 
 /* =========================================================
    MOBILE
@@ -1537,10 +1750,7 @@ body {
 
     .message:hover {
         box-shadow:
-            0 3px 8px rgba(0,
-                0,
-                0,
-                0.18);
+            0 3px 8px rgba(0, 0, 0, 0.18);
     }
 
     .message-actions {
@@ -1561,9 +1771,15 @@ body {
         font-size: 13px;
     }
 
+    .message-sending {
+        font-size: 13px;
+        transform: translateY(2px);
+    }
+
     .chat-input {
         gap: 7px;
-        padding: 10px;
+        padding: 8px 10px;
+        padding-bottom: calc(8px + env(safe-area-inset-bottom));
     }
 
     .chat-input input {
@@ -1650,8 +1866,28 @@ body {
         width: 85%;
         max-width: 340px;
     }
-}
 
+    .group-info-overlay {
+        padding-top: 70px;
+    }
+
+    .group-info-popup {
+        width: calc(100% - 20px);
+        padding: 16px;
+    }
+
+    .chat-group-title {
+        max-width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 17px;
+    }
+
+    .group-id-row code {
+        font-size: 10px;
+    }
+}
 
 /* =========================================================
    SMALL PHONES
@@ -1688,12 +1924,12 @@ body {
     }
 }
 
-
 /* =========================================================
    ANIMATIONS
 ========================================================= */
 
 @keyframes logoGradient {
+
     0% {
         background-position: 0% center;
     }
@@ -1708,6 +1944,7 @@ body {
 }
 
 @keyframes messageAppear {
+
     from {
         opacity: 0;
         transform: translateY(5px);
@@ -1720,6 +1957,7 @@ body {
 }
 
 @keyframes typingAppear {
+
     from {
         opacity: 0;
         transform: translateY(4px);
@@ -1732,6 +1970,7 @@ body {
 }
 
 @keyframes notificationAppear {
+
     from {
         opacity: 0;
         transform:
@@ -1746,6 +1985,7 @@ body {
 }
 
 @keyframes groupModalAppear {
+
     from {
         opacity: 0;
         transform:
@@ -1772,6 +2012,7 @@ body {
 }
 
 @keyframes usernameAppear {
+
     from {
         opacity: 0;
         max-width: 0;
@@ -1788,6 +2029,7 @@ body {
 }
 
 @keyframes usernameDisappear {
+
     from {
         opacity: 1;
         max-width: 200px;
@@ -1804,6 +2046,7 @@ body {
 }
 
 @keyframes reactionAppear {
+
     from {
         opacity: 0;
         transform:
@@ -1818,6 +2061,7 @@ body {
 }
 
 @keyframes membersPanelOpen {
+
     from {
         transform: translateX(100%);
     }
@@ -1827,657 +2071,15 @@ body {
     }
 }
 
-.join-group-button {
-    border: none;
-    padding: 8px 16px;
-    border-radius: 8px;
-    background: #4f7cff;
-    color: white;
-    font-family: inherit;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.2s ease;
-}
-
-.join-group-button:hover {
-    background: #3d68e8;
-    transform: translateY(-1px);
-}
-
-.join-group-button:active {
-    transform: scale(0.96);
-}
-
-.join-group-id-button {
-    width: 100%;
-    flex-shrink: 0;
-    margin-top: 15px;
-    padding: 12px;
-
-    color: #a5b4fc;
-
-    font: inherit;
-    font-size: 13px;
-    font-weight: 500;
-
-    cursor: pointer;
-
-    background: rgba(99,
-            102,
-            241,
-            0.08);
-
-    border: 1px dashed rgba(129,
-            140,
-            248,
-            0.3);
-
-    border-radius: 10px;
-
-    transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
-        transform 0.2s ease;
-}
-
-.join-group-id-button:hover {
-    background: rgba(99,
-            102,
-            241,
-            0.14);
-
-    border-color: #818cf8;
-
-    transform: translateY(-1px);
-}
-
-.join-group-id-box {
-    padding: 12px;
-    margin-bottom: 10px;
-    border-radius: 12px;
-    background: #1d2638;
-}
-
-.join-group-id-box input {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    outline: none;
-    border-radius: 8px;
-    background: #111827;
-    color: white;
-    font-size: 14px;
-    margin-bottom: 10px;
-}
-
-.join-group-id-box input::placeholder {
-    color: #7d8799;
-}
-
-.join-group-id-actions {
-    display: flex;
-    gap: 8px;
-}
-
-.join-group-id-actions button {
-    flex: 1;
-}
-
-/* =====================================================
-   JOIN BY GROUP ID
-===================================================== */
-
-.join-group-id-box {
-    flex-shrink: 0;
-    margin-bottom: 10px;
-    padding: 14px;
-
-    background: rgba(30,
-            41,
-            59,
-            0.75);
-
-    border: 1px solid rgba(129,
-            140,
-            248,
-            0.15);
-
-    border-radius: 12px;
-
-    animation: groupModalAppear 0.2s ease;
-}
-
-.join-group-id-box input {
-    width: 100%;
-    padding: 12px 13px;
-
-    color: #f8fafc;
-    font: inherit;
-    font-size: 13px;
-
-    outline: none;
-
-    background: #263449;
-
-    border: 1px solid rgba(129,
-            140,
-            248,
-            0.2);
-
-    border-radius: 9px;
-}
-
-.join-group-id-box input::placeholder {
-    color: #64748b;
-}
-
-.join-group-id-box input:focus {
-    border-color: #818cf8;
-
-    box-shadow:
-        0 0 0 3px rgba(99,
-            102,
-            241,
-            0.12);
-}
-
-
-/* =====================================================
-   JOIN BY GROUP ID - ACTIONS
-===================================================== */
-
-.join-group-id-actions {
-    display: flex;
-    gap: 8px;
-    margin-top: 10px;
-}
-
-.join-group-id-actions button {
-    flex: 1;
-    height: 40px;
-
-    font: inherit;
-    font-size: 12px;
-    font-weight: 500;
-
-    cursor: pointer;
-
-    border-radius: 8px;
-
-    transition:
-        background 0.2s ease,
-        box-shadow 0.2s ease,
-        transform 0.2s ease;
-}
-
-
-/* =====================================================
-   CANCEL BUTTON
-   Same style as Create Group
-===================================================== */
-
-.join-group-id-actions .cancel-group-button {
-    color: #cbd5e1;
-    background: #293548;
-    border: 1px solid #3b475a;
-}
-
-.join-group-id-actions .cancel-group-button:hover {
-    background: #344258;
-}
-
-
-/* =====================================================
-   JOIN BUTTON
-   Same style as Create Group
-===================================================== */
-
-.join-group-id-actions .confirm-group-button {
-    color: white;
-
-    background: linear-gradient(135deg,
-            #6366f1,
-            #8b5cf6);
-
-    border: 0;
-}
-
-.join-group-id-actions .confirm-group-button:hover {
-    box-shadow:
-        0 6px 18px rgba(99,
-            102,
-            241,
-            0.25);
-
-    transform: translateY(-1px);
-}
-
-.join-group-id-actions button:active {
-    transform: scale(0.97);
-}
-
-/* =====================================================
-   CLICKABLE GROUP TITLE
-===================================================== */
-.chat-group-title {
-    background: linear-gradient(90deg,
-            #00f5ff,
-            #0077ff,
-           #67e8f9,
-            #818cf8,
-            #c084fc,
-            #67e8f9,
-            #67e8f9,
-            #818cf8,
-            #c084fc,
-            #67e8f9,
-            #00f5ff);
-
-    background-size: 500% 100%;
-
-    -webkit-background-clip: text;
-    background-clip: text;
-
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-
-    animation: groupNameGradient 15s linear infinite reverse;
-
-    border: none;
-    outline: none;
-    cursor: pointer;
-
-    font-family: "Poppins", sans-serif;
-    font-size: 30px;
-    font-weight: 700;
-
-    padding: 6px 12px;
-}
-
-.chat-group-title:hover {
-    transform: scale(1.04);
-}
-
-@keyframes groupNameGradient {
-
-    from {
-        background-position: 0% 50%;
-    }
-
-    to {
-        background-position: 500% 50%;
-    }
-}
-
-/* =====================================================
-   GROUP INFO OVERLAY
-===================================================== */
-
-.group-info-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-
-    padding-top: 80px;
-
-    background: rgba(0, 0, 0, 0.25);
-}
-
-
-/* =====================================================
-   GROUP INFO POPUP
-===================================================== */
-
-.group-info-popup {
-    width: min(420px, calc(100% - 30px));
-
-    background: #18202b;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-
-    border-radius: 14px;
-
-    padding: 20px;
-
-    box-shadow:
-        0 15px 50px rgba(0, 0, 0, 0.45);
-
-    color: #fff;
-}
-
-
-/* =====================================================
-   GROUP INFO HEADER
-===================================================== */
-
-.group-info-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-
-    margin-bottom: 20px;
-}
-
-.group-info-header h3 {
-    margin: 0;
-    font-size: 20px;
-}
-
-.group-info-header span {
-    display: block;
-
-    margin-top: 4px;
-
-    font-size: 12px;
-
-    color: #8d99a8;
-}
-
-.group-info-close {
-    border: none;
-    background: transparent;
-
-    color: #9da8b5;
-
-    font-size: 18px;
-
-    cursor: pointer;
-
-    width: 32px;
-    height: 32px;
-
-    border-radius: 8px;
-}
-
-.group-info-close:hover {
-    background: rgba(255, 255, 255, 0.08);
-    color: white;
-}
-
-
-/* =====================================================
-   GROUP ID
-===================================================== */
-
-.group-id-section {
-    margin-bottom: 16px;
-}
-
-.group-id-label {
-    display: block;
-
-    font-size: 12px;
-    font-weight: 600;
-
-    color: #8d99a8;
-
-    margin-bottom: 7px;
-}
-
-.group-id-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    background: #10161f;
-
-    border: 1px solid rgba(255, 255, 255, 0.07);
-
-    border-radius: 9px;
-
-    padding: 8px;
-}
-
-.group-id-row code {
-    flex: 1;
-
-    min-width: 0;
-
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-
-    color: #d8dee8;
-
-    font-family: monospace;
-
-    font-size: 12px;
-}
-
-.copy-group-id-button {
-    flex-shrink: 0;
-
-    border: none;
-
-    background: #273342;
-
-    color: #e5ebf2;
-
-    padding: 7px 10px;
-
-    border-radius: 7px;
-
-    cursor: pointer;
-
-    font-size: 12px;
-
-    transition: 0.2s ease;
-}
-
-.copy-group-id-button:hover {
-    background: #334255;
-}
-
-
-/* =====================================================
-   GROUP INFO DETAILS
-===================================================== */
-
-.group-info-members,
-.group-info-creator {
-    display: flex;
-
-    justify-content: space-between;
-    align-items: center;
-
-    padding: 12px 0;
-
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-
-    font-size: 14px;
-}
-
-.group-info-members span,
-.group-info-creator span {
-    color: #9da8b5;
-}
-
-.group-info-members strong,
-.group-info-creator strong {
-    color: #edf2f7;
-}
-
-
-/* =====================================================
-   DELETE GROUP
-===================================================== */
-
-.popup-delete-group-button {
-    width: 100%;
-
-    margin-top: 16px;
-
-    border: 1px solid rgba(255, 90, 90, 0.25);
-
-    background: rgba(180, 50, 50, 0.15);
-
-    color: #ff8585;
-
-    padding: 11px;
-
-    border-radius: 9px;
-
-    font-size: 14px;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition: 0.2s ease;
-}
-
-.popup-delete-group-button:hover {
-    background: rgba(180, 50, 50, 0.25);
-
-    border-color: rgba(255, 90, 90, 0.4);
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media (max-width: 600px) {
-
-    .group-info-overlay {
-        padding-top: 70px;
-    }
-
-    .group-info-popup {
-        width: calc(100% - 20px);
-
-        padding: 16px;
-    }
-
-    .chat-group-title {
-        max-width: 150px;
-
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-
-        font-size: 17px;
-    }
-
-    .group-id-row code {
-        font-size: 10px;
-    }
-
-}
-
-/* =====================================================
-   SYSTEM MESSAGES
-===================================================== */
-
-.system-message {
-    width: fit-content;
-
-    max-width: 80%;
-
-    margin: 10px auto;
-
-    padding: 7px 14px;
-
-    font-size: 12px;
-
-    font-weight: 500;
-
-    text-align: center;
-
-    border-radius: 8px;
-
-    animation: systemMessageAppear 0.25s ease;
-}
-
-.system-message.joined {
-    background: rgba(34, 197, 94, 0.12);
-
-    color: #86efac;
-
-    border: 1px solid
-        rgba(34, 197, 94, 0.2);
-}
-
-.system-message.left {
-    background: rgba(239, 68, 68, 0.1);
-
-    color: #fca5a5;
-
-    border: 1px solid
-        rgba(239, 68, 68, 0.2);
-}
-
 @keyframes systemMessageAppear {
 
     from {
         opacity: 0;
-
         transform: translateY(5px);
     }
 
     to {
         opacity: 1;
-
         transform: translateY(0);
-    }
-}
-
-
-/* =====================================================
-   MOBILE KEYBOARD FIX
-===================================================== */
-
-html,
-body,
-#root {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-}
-
-.chat-app {
-    width: 100%;
-    height: 100dvh;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-}
-
-.messages {
-    flex: 1 1 auto;
-    min-height: 0;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-
-.chat-input {
-    flex-shrink: 0;
-    width: 100%;
-    padding-bottom: calc(10px + env(safe-area-inset-bottom));
-}
-
-/* Phone screens */
-@media (max-width: 600px) {
-
-    .chat-app {
-        height: 100dvh;
-        min-height: 0;
-    }
-
-    .messages {
-        min-height: 0;
-        flex: 1 1 auto;
-        overflow-y: auto;
-    }
-
-    .chat-input {
-        flex-shrink: 0;
-        padding: 8px 10px;
-        padding-bottom: calc(8px + env(safe-area-inset-bottom));
     }
 }
