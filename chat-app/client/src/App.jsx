@@ -83,6 +83,9 @@ function App() {
     const [showUsername, setShowUsername] =
         useState(true);
 
+    const [showAnonymousNotice, setShowAnonymousNotice] =
+        useState(true);
+
     const [onlineUsers, setOnlineUsers] =
         useState(0);
 
@@ -2679,7 +2682,7 @@ function App() {
                 <div className="join-box">
 
                     <h1>
-                        Chatly
+                        Chat App
                     </h1>
 
                     <p className="join-subtitle">
@@ -2704,7 +2707,7 @@ function App() {
                 <div className="join-box">
 
                     <h1>
-                        Chatly
+                        Chat App
                     </h1>
 
                     <p className="join-subtitle">
@@ -2717,6 +2720,36 @@ function App() {
                         </div>
                     )}
 
+                    {showAnonymousNotice && (
+                        <div className="anonymous-notice">
+
+                            <div className="anonymous-notice-content">
+
+                                <button
+                                    type="button"
+                                    className="anonymous-notice-close"
+                                    onClick={() =>
+                                        setShowAnonymousNotice(false)
+                                    }
+                                    aria-label="Close anonymous notice"
+                                >
+                                    ✕
+                                </button>
+
+                                <strong>
+                                    🔒 Stay Anonymous
+                                </strong>
+
+                                <p>
+                                    Chatly allows you to chat without revealing your real identity.
+                                    Choose any username and start chatting—other users won't know
+                                    who you really are unless you choose to tell them.
+                                </p>
+
+                            </div>
+
+                        </div>
+                    )}
                     <input
                         type="text"
                         value={username}
@@ -2790,7 +2823,7 @@ function App() {
                         <div>
 
                             <h1>
-                                Chatly
+                                Chat App
                             </h1>
 
                             <p>
@@ -3120,25 +3153,25 @@ function App() {
                     refreshing
                 ) && (
 
-                    <div
-                        className={`header-refresh-indicator ${refreshing ? "refreshing" : ""
-                            }`}
-                        style={{
-                            transform:
-                                refreshing
-                                    ? "translate(-50%, 38px)"
-                                    : `translate(-50%, ${Math.min(
-                                        refreshDistance * 0.55,
-                                        55
-                                    )}px) rotate(${Math.min(
-                                        (refreshDistance / 100) * 360,
-                                        360
-                                    )}deg)`
-                        }}
-                    >
-                        ↻
-                    </div>
-                )}
+                        <div
+                            className={`header-refresh-indicator ${refreshing ? "refreshing" : ""
+                                }`}
+                            style={{
+                                transform:
+                                    refreshing
+                                        ? "translate(-50%, 38px)"
+                                        : `translate(-50%, ${Math.min(
+                                            refreshDistance * 0.55,
+                                            55
+                                        )}px) rotate(${Math.min(
+                                            (refreshDistance / 100) * 360,
+                                            360
+                                        )}deg)`
+                            }}
+                        >
+                            ↻
+                        </div>
+                    )}
 
                 <div className="header-left">
 
