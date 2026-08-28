@@ -30,6 +30,9 @@ function App() {
     const [joined, setJoined] =
         useState(false);
 
+    const [restoringSession, setRestoringSession] =
+        useState(true);
+
     // =====================================================
     // GROUP STATES
     // =====================================================
@@ -111,10 +114,23 @@ function App() {
         useState(null);
 
     // =====================================================
+    // REFRESH STATES
+    // =====================================================
+
+    const [refreshing, setRefreshing] =
+        useState(false);
+
+    const [refreshDistance, setRefreshDistance] =
+        useState(0);
+
+    // =====================================================
     // REFS
     // =====================================================
 
     const messagesEndRef =
+        useRef(null);
+
+    const messagesContainerRef =
         useRef(null);
 
     const messageInputRef =
@@ -143,6 +159,58 @@ function App() {
 
     const longPressTriggeredRef =
         useRef(false);
+
+    // =====================================================
+    // PULL TO REFRESH REFS
+    // =====================================================
+
+    const refreshStartYRef =
+        useRef(0);
+
+    const refreshStartXRef =
+        useRef(0);
+
+    const refreshPullingRef =
+        useRef(false);
+
+    const refreshDistanceRef =
+        useRef(0);
+
+    const refreshAnimationFrameRef =
+        useRef(null);
+
+    // =====================================================
+    // SAVE CURRENT GROUP
+    // =====================================================
+
+    function saveCurrentGroup(group) {
+
+        if (!group?.id) {
+            return;
+        }
+
+        localStorage.setItem(
+            "chatly_current_group",
+            JSON.stringify({
+                id:
+                    group.id,
+
+                groupCode:
+                    group.groupCode || ""
+            })
+        );
+    }
+
+    // =====================================================
+    // CLEAR SAVED GROUP
+    // =====================================================
+
+    function clearSavedGroup() {
+
+        localStorage.removeItem(
+            "chatly_current_group"
+        );
+    }
 
     // =====================================================
     // CLOSE MESSAGE ACTIONS
@@ -291,6 +359,7 @@ function App() {
         // -------------------------------------------------
 
         function handleOnlineUsers(count) {
+
             setOnlineUsers(count);
         }
 
@@ -304,6 +373,7 @@ function App() {
         // -------------------------------------------------
 
         function handleGroupOnlineUsers(count) {
+
             setGroupOnlineUsers(count);
         }
 
@@ -366,7 +436,11 @@ function App() {
                 group
             );
 
+            saveCurrentGroup(group);
+
             setCurrentGroup(group);
+
+            setRestoringSession(false);
 
             setShowMembers(false);
 
@@ -374,9 +448,19 @@ function App() {
 
             setGroupIdCopied(false);
 
-            setGroupOnlineUsers(1);
+            setGroupOnlineUsers(
+                group.members?.length || 1
+            );
 
-            setMessages([]);
+            /*
+             * IMPORTANT:
+             * During refresh we DON'T clear messages here.
+             * group_messages will replace them with fresh
+             * messages from the server.
+             */
+            if (!refreshing) {
+                setMessages([]);
+            }
 
             setTypingUser("");
 
@@ -391,6 +475,12 @@ function App() {
             setSwipeOffset(0);
 
             setGroupError("");
+
+            /*
+             * Don't stop refreshing here.
+             * group_messages will stop it after the actual
+             * messages arrive.
+             */
         }
 
         socket.on(
@@ -435,6 +525,17 @@ function App() {
             setActiveSwipeIndex(null);
 
             setSwipeOffset(0);
+
+            /*
+             * Refresh is considered complete only when
+             * the server has actually sent the messages.
+             */
+            setRefreshing(false);
+
+            setRefreshDistance(0);
+
+            refreshDistanceRef.current =
+                0;
         }
 
         socket.on(
@@ -454,6 +555,15 @@ function App() {
             );
 
             setGroupError(error);
+
+            setRestoringSession(false);
+
+            setRefreshing(false);
+
+            setRefreshDistance(0);
+
+            refreshDistanceRef.current =
+                0;
         }
 
         socket.on(
@@ -475,6 +585,15 @@ function App() {
             setGroupError(
                 "Could not connect to the chat server."
             );
+
+            setRestoringSession(false);
+
+            setRefreshing(false);
+
+            setRefreshDistance(0);
+
+            refreshDistanceRef.current =
+                0;
         }
 
         socket.on(
@@ -497,9 +616,12 @@ function App() {
                     ...previousMessages,
                     {
                         type: "system",
+
                         status: "joined",
+
                         text:
                             `${data.username} joined the chat`,
+
                         clientKey:
                             `system-joined-${Date.now()}-${Math.random()}`
                     }
@@ -527,9 +649,12 @@ function App() {
                     ...previousMessages,
                     {
                         type: "system",
+
                         status: "left",
+
                         text:
                             `${data.username} left the chat`,
+
                         clientKey:
                             `system-left-${Date.now()}-${Math.random()}`
                     }
@@ -552,7 +677,10 @@ function App() {
                 return;
             }
 
-            if (data.username === username) {
+            if (
+                data.username ===
+                username
+            ) {
                 return;
             }
 
@@ -571,6 +699,7 @@ function App() {
         // -------------------------------------------------
 
         function handleUserStopTyping() {
+
             setTypingUser("");
         }
 
@@ -585,11 +714,17 @@ function App() {
 
         function handleUsernameTaken() {
 
+            localStorage.removeItem(
+                "chatly_username"
+            );
+
             setAlertMessage(
                 "That username is already taken"
             );
 
             setJoined(false);
+
+            setRestoringSession(false);
         }
 
         socket.on(
@@ -605,12 +740,21 @@ function App() {
             acceptedUsername
         ) {
 
+            const finalUsername =
+                acceptedUsername ||
+                username;
+
             if (acceptedUsername) {
 
                 setUsername(
                     acceptedUsername
                 );
             }
+
+            localStorage.setItem(
+                "chatly_username",
+                finalUsername
+            );
 
             setAlertMessage("");
 
@@ -619,6 +763,63 @@ function App() {
             socket.emit(
                 "get_groups"
             );
+
+            // ---------------------------------------------
+            // RESTORE PREVIOUS GROUP
+            // ---------------------------------------------
+
+            const savedGroup =
+                localStorage.getItem(
+                    "chatly_current_group"
+                );
+
+            if (!savedGroup) {
+
+                setRestoringSession(false);
+
+                return;
+            }
+
+            try {
+
+                const parsedGroup =
+                    JSON.parse(savedGroup);
+
+                if (
+                    parsedGroup &&
+                    parsedGroup.id
+                ) {
+
+                    console.log(
+                        "RESTORING PREVIOUS GROUP:",
+                        parsedGroup.id
+                    );
+
+                    socket.emit(
+                        "join_group",
+                        String(
+                            parsedGroup.id
+                        )
+                    );
+
+                    return;
+                }
+
+                clearSavedGroup();
+
+                setRestoringSession(false);
+
+            } catch (error) {
+
+                console.error(
+                    "GROUP RESTORE ERROR:",
+                    error
+                );
+
+                clearSavedGroup();
+
+                setRestoringSession(false);
+            }
         }
 
         socket.on(
@@ -647,11 +848,21 @@ function App() {
 
                             return {
                                 ...msg,
-                                deleted: true,
-                                text: "",
-                                reaction: null,
-                                reactionUser: null,
-                                sending: false
+
+                                deleted:
+                                    true,
+
+                                text:
+                                    "",
+
+                                reaction:
+                                    null,
+
+                                reactionUser:
+                                    null,
+
+                                sending:
+                                    false
                             };
                         }
 
@@ -690,11 +901,15 @@ function App() {
                             String(data.id)
                             ? {
                                 ...msg,
+
                                 reaction:
                                     data.reaction,
+
                                 reactionUser:
                                     data.username,
-                                sending: false
+
+                                sending:
+                                    false
                             }
                             : msg
                     )
@@ -723,9 +938,15 @@ function App() {
                             String(data.id)
                             ? {
                                 ...msg,
-                                reaction: null,
-                                reactionUser: null,
-                                sending: false
+
+                                reaction:
+                                    null,
+
+                                reactionUser:
+                                    null,
+
+                                sending:
+                                    false
                             }
                             : msg
                     )
@@ -759,6 +980,8 @@ function App() {
 
         function handleGroupDeleted() {
 
+            clearSavedGroup();
+
             setCurrentGroup(null);
 
             setShowMembers(false);
@@ -784,6 +1007,13 @@ function App() {
             setSwipeOffset(0);
 
             setGroupError("");
+
+            setRefreshing(false);
+
+            setRefreshDistance(0);
+
+            refreshDistanceRef.current =
+                0;
         }
 
         socket.on(
@@ -895,8 +1125,71 @@ function App() {
 
     }, [
         currentGroup,
-        username
+        username,
+        refreshing
     ]);
+
+    // =====================================================
+    // RESTORE SESSION ON PAGE LOAD
+    // =====================================================
+
+    useEffect(() => {
+
+        const savedUsername =
+            localStorage.getItem(
+                "chatly_username"
+            );
+
+        if (!savedUsername) {
+
+            setRestoringSession(false);
+
+            return;
+        }
+
+        setUsername(
+            savedUsername
+        );
+
+        if (!socket.connected) {
+
+            socket.connect();
+        }
+
+        const joinSavedUsername = () => {
+
+            console.log(
+                "RESTORING USERNAME:",
+                savedUsername
+            );
+
+            socket.emit(
+                "join_chat",
+                savedUsername
+            );
+        };
+
+        if (socket.connected) {
+
+            joinSavedUsername();
+
+        } else {
+
+            socket.once(
+                "connect",
+                joinSavedUsername
+            );
+        }
+
+        return () => {
+
+            socket.off(
+                "connect",
+                joinSavedUsername
+            );
+        };
+
+    }, []);
 
     // =====================================================
     // AUTO SCROLL
@@ -929,9 +1222,312 @@ function App() {
                 longPressTimerRef.current
             );
 
+            if (
+                refreshAnimationFrameRef.current
+            ) {
+
+                cancelAnimationFrame(
+                    refreshAnimationFrameRef.current
+                );
+            }
         };
 
     }, []);
+
+    // =====================================================
+    // PULL TO REFRESH FROM HEADER
+    // =====================================================
+
+    function handleRefreshTouchStart(event) {
+
+        if (
+            !currentGroup ||
+            refreshing
+        ) {
+            return;
+        }
+
+        if (
+            event.target.closest("button") ||
+            event.target.closest("input") ||
+            event.target.closest(".members-button") ||
+            event.target.closest(".chat-group-title")
+        ) {
+            return;
+        }
+
+        const touch =
+            event.touches[0];
+
+        refreshStartYRef.current =
+            touch.clientY;
+
+        refreshStartXRef.current =
+            touch.clientX;
+
+        refreshPullingRef.current =
+            true;
+
+        refreshDistanceRef.current =
+            0;
+
+        setRefreshDistance(0);
+    }
+
+    function handleRefreshTouchMove(event) {
+
+        if (
+            !refreshPullingRef.current ||
+            refreshing
+        ) {
+            return;
+        }
+
+        const touch =
+            event.touches[0];
+
+        const distance =
+            touch.clientY -
+            refreshStartYRef.current;
+
+        const horizontalDistance =
+            Math.abs(
+                touch.clientX -
+                refreshStartXRef.current
+            );
+
+        // ---------------------------------------------
+        // UPWARD MOVEMENT
+        // ---------------------------------------------
+
+        if (
+            distance <= 0
+        ) {
+
+            refreshDistanceRef.current =
+                0;
+
+            if (
+                refreshAnimationFrameRef.current
+            ) {
+
+                cancelAnimationFrame(
+                    refreshAnimationFrameRef.current
+                );
+            }
+
+            setRefreshDistance(0);
+
+            return;
+        }
+
+        // ---------------------------------------------
+        // HORIZONTAL MOVEMENT
+        // ---------------------------------------------
+
+        if (
+            horizontalDistance > distance
+        ) {
+
+            refreshPullingRef.current =
+                false;
+
+            refreshDistanceRef.current =
+                0;
+
+            setRefreshDistance(0);
+
+            return;
+        }
+
+        /*
+         * Resistance:
+         *
+         * Finger moves 100px
+         * indicator moves approximately 100px
+         *
+         * Maximum = 100px
+         */
+        const limitedDistance =
+            Math.min(
+                distance,
+                100
+            );
+
+        refreshDistanceRef.current =
+            limitedDistance;
+
+        /*
+         * IMPORTANT:
+         * Don't update React state for every single
+         * touch event.
+         *
+         * requestAnimationFrame prevents mobile lag.
+         */
+        if (
+            !refreshAnimationFrameRef.current
+        ) {
+
+            refreshAnimationFrameRef.current =
+                requestAnimationFrame(() => {
+
+                    setRefreshDistance(
+                        refreshDistanceRef.current
+                    );
+
+                    refreshAnimationFrameRef.current =
+                        null;
+                });
+        }
+
+        /*
+         * Prevent browser's native pull-to-refresh
+         * once the user has actually started pulling.
+         */
+        if (
+            distance > 8
+        ) {
+
+            event.preventDefault();
+        }
+    }
+
+    function handleRefreshTouchEnd() {
+
+        if (
+            !refreshPullingRef.current ||
+            refreshing
+        ) {
+            return;
+        }
+
+        const distance =
+            refreshDistanceRef.current;
+
+        refreshPullingRef.current =
+            false;
+
+        /*
+         * If 70px reached, refresh.
+         */
+        if (
+            distance >= 70
+        ) {
+
+            refreshCurrentGroup();
+
+        } else {
+
+            refreshDistanceRef.current =
+                0;
+
+            setRefreshDistance(0);
+        }
+    }
+
+    // =====================================================
+    // REFRESH CURRENT GROUP
+    // =====================================================
+
+    function refreshCurrentGroup() {
+
+        if (
+            !currentGroup ||
+            refreshing
+        ) {
+            return;
+        }
+
+        console.log(
+            "REFRESHING GROUP:",
+            currentGroup.id
+        );
+
+        setRefreshing(true);
+
+        /*
+         * Keep indicator at 70px while refreshing.
+         */
+        setRefreshDistance(70);
+
+        refreshDistanceRef.current =
+            70;
+
+        /*
+         * IMPORTANT:
+         *
+         * DON'T clear messages here.
+         *
+         * Old messages stay visible while the new
+         * messages are being fetched.
+         *
+         * This prevents the blank-chat problem.
+         */
+
+        setTypingUser("");
+
+        setReplyingTo(null);
+
+        setDeleteMessageIndex(null);
+
+        setSwipedMessageIndex(null);
+
+        setActiveSwipeIndex(null);
+
+        setSwipeOffset(0);
+
+        setGroupError("");
+
+        // ---------------------------------------------
+        // SOCKET CONNECTED
+        // ---------------------------------------------
+
+        if (
+            socket.connected
+        ) {
+
+            socket.emit(
+                "join_group",
+                String(
+                    currentGroup.id
+                )
+            );
+
+            return;
+        }
+
+        // ---------------------------------------------
+        // SOCKET DISCONNECTED
+        // ---------------------------------------------
+
+        console.log(
+            "SOCKET DISCONNECTED. RECONNECTING..."
+        );
+
+        const handleRefreshReconnect = () => {
+
+            console.log(
+                "SOCKET RECONNECTED"
+            );
+
+            /*
+             * Re-register username first.
+             *
+             * username_accepted will restore the group.
+             */
+            socket.emit(
+                "join_chat",
+                username
+            );
+        };
+
+        socket.once(
+            "connect",
+            handleRefreshReconnect
+        );
+
+        socket.connect();
+    }
 
     // =====================================================
     // TOUCH START
@@ -1061,7 +1657,9 @@ function App() {
         touchMovedRef.current =
             true;
 
-        if (deltaX > 12) {
+        if (
+            deltaX > 12
+        ) {
 
             isSwipingRef.current =
                 true;
@@ -1144,9 +1742,8 @@ function App() {
             handleReply(
                 selectedMessage
             );
-        }
 
-        else if (
+        } else if (
             !isSwipingRef.current
         ) {
 
@@ -1159,9 +1756,8 @@ function App() {
 
                 setSwipeOffset(0);
             }
-        }
 
-        else {
+        } else {
 
             setActiveSwipeIndex(null);
 
@@ -1496,7 +2092,7 @@ function App() {
     }
 
     // =====================================================
-    // LEAVE GROUP
+    // LEAVE GROUP / GO TO GROUPS
     // =====================================================
 
     function handleLeaveGroup() {
@@ -1505,7 +2101,11 @@ function App() {
             "leave_group"
         );
 
+        clearSavedGroup();
+
         setCurrentGroup(null);
+
+        setRestoringSession(false);
 
         setShowMembers(false);
 
@@ -1528,6 +2128,15 @@ function App() {
         setActiveSwipeIndex(null);
 
         setSwipeOffset(0);
+
+        setGroupError("");
+
+        setRefreshing(false);
+
+        setRefreshDistance(0);
+
+        refreshDistanceRef.current =
+            0;
     }
 
     // =====================================================
@@ -1535,6 +2144,12 @@ function App() {
     // =====================================================
 
     function handleLeave() {
+
+        clearSavedGroup();
+
+        localStorage.removeItem(
+            "chatly_username"
+        );
 
         socket.disconnect();
 
@@ -1571,6 +2186,15 @@ function App() {
         setReplyingTo(null);
 
         setSwipeOffset(0);
+
+        setRestoringSession(false);
+
+        setRefreshing(false);
+
+        setRefreshDistance(0);
+
+        refreshDistanceRef.current =
+            0;
 
         setTimeout(() => {
 
@@ -1624,6 +2248,11 @@ function App() {
         }
 
         setUsername(
+            cleanUsername
+        );
+
+        localStorage.setItem(
+            "chatly_username",
             cleanUsername
         );
 
@@ -1835,6 +2464,20 @@ function App() {
             return;
         }
 
+        /*
+         * Don't try to send while socket is disconnected.
+         */
+        if (!socket.connected) {
+
+            setAlertMessage(
+                "Connection lost. Reconnecting..."
+            );
+
+            socket.connect();
+
+            return;
+        }
+
         const tempId =
             `temp-${Date.now()}-${Math.random()
                 .toString(36)
@@ -2019,6 +2662,33 @@ function App() {
         setShowUsername(
             previous =>
                 !previous
+        );
+    }
+
+    // =====================================================
+    // RESTORING SCREEN
+    // =====================================================
+
+    if (
+        restoringSession
+    ) {
+
+        return (
+            <div className="join-container">
+
+                <div className="join-box">
+
+                    <h1>
+                        Chatly
+                    </h1>
+
+                    <p className="join-subtitle">
+                        Restoring your chat...
+                    </p>
+
+                </div>
+
+            </div>
         );
     }
 
@@ -2414,9 +3084,61 @@ function App() {
                 </div>
             )}
 
-            {/* HEADER */}
+            {/* =====================================================
+                HEADER
+            ===================================================== */}
 
-            <header className="chat-header">
+            <header
+                className="chat-header"
+                onTouchStart={
+                    handleRefreshTouchStart
+                }
+                onTouchMove={
+                    handleRefreshTouchMove
+                }
+                onTouchEnd={
+                    handleRefreshTouchEnd
+                }
+                onTouchCancel={() => {
+
+                    refreshPullingRef.current =
+                        false;
+
+                    refreshDistanceRef.current =
+                        0;
+
+                    setRefreshDistance(0);
+                }}
+            >
+
+                {/* =================================================
+                    HEADER PULL REFRESH INDICATOR
+                    ================================================= */}
+
+                {(
+                    refreshDistance > 0 ||
+                    refreshing
+                ) && (
+
+                    <div
+                        className={`header-refresh-indicator ${refreshing ? "refreshing" : ""
+                            }`}
+                        style={{
+                            transform:
+                                refreshing
+                                    ? "translate(-50%, 38px)"
+                                    : `translate(-50%, ${Math.min(
+                                        refreshDistance * 0.55,
+                                        55
+                                    )}px) rotate(${Math.min(
+                                        (refreshDistance / 100) * 360,
+                                        360
+                                    )}deg)`
+                        }}
+                    >
+                        ↻
+                    </div>
+                )}
 
                 <div className="header-left">
 
@@ -2806,7 +3528,10 @@ function App() {
                 MESSAGES
             ===================================================== */}
 
-            <div className="messages">
+            <div
+                className="messages"
+                ref={messagesContainerRef}
+            >
 
                 {messages.map(
                     (msg, index) => {
@@ -2947,7 +3672,6 @@ function App() {
                                         {msg.username}
                                     </strong>
 
-                                    {/* ONLY ONE CLOCK */}
                                     {!isDeleted &&
                                         msg.sending === true && (
 
@@ -2980,6 +3704,7 @@ function App() {
                                                     ?.scrollIntoView({
                                                         behavior:
                                                             "smooth",
+
                                                         block:
                                                             "center"
                                                     });
@@ -3036,7 +3761,6 @@ function App() {
 
                                     </p>
 
-                                    {/* TIME ONLY — NO CLOCK HERE */}
                                     {!isDeleted && (
 
                                         <span className="message-time">
